@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 const fetchTimeZone = async (lat, lon) => {
   const apiKeyTwo = process.env.REACT_APP_API_TWO
   const response = await fetch(
-    `http://api.timezonedb.com/v2.1/get-time-zone?key=${apiKeyTwo}&format=json&by=position&lat=${lat}&lng=${lon}`
+    `https://api.timezonedb.com/v2.1/get-time-zone?key=${apiKeyTwo}&format=json&by=position&lat=${lat}&lng=${lon}`
   );
   const data = await response.json();
   return data;
