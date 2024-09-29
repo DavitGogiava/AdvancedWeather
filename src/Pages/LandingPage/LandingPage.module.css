@@ -1,0 +1,135 @@
+.LandingPageWrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(39, 38, 56);
+}
+
+.LandingPageContainer {
+  height: 95vh;
+  width: 95%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 30px;
+  flex-direction: row;
+  z-index: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+
+
+.LandingPageContainer .Video {
+  z-index: 5;
+  position: absolute;
+  height: 100%;
+  width: 177.77777778vh; /* 100 * 16 / 9 */
+  min-width: 100%;
+  min-height: 56.25vw; /* 100 * 9 / 16 */
+}
+
+.Overlay {
+  position: absolute;
+  z-index: 6;
+  height: 100%;
+  width: 177.77777778vh; /* 100 * 16 / 9 */
+  min-width: 100%;
+  min-height: 56.25vw; /* 100 * 9 / 16 */
+}
+
+
+
+
+.LeftSection {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  z-index: 10;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.LeftSectionContainer {
+  display: flex;
+  width: 85%;
+  height: 90%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.LeftSectionContainer .inputContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 0;
+  width: 4vh;
+}
+
+.searchIcon:nth-of-type(1) {
+  left: 0;
+}
+.searchIcon:nth-of-type(2) {
+  right: 0;
+}
+
+
+
+
+.inputContainer .countryInput {
+  width: 90%;
+  height: 4vh;
+  background-color: transparent;
+  border: none;
+  border-bottom: 0.2vh solid white;
+  padding-bottom: 1vh;
+  padding-left: 4vh;
+  color: white;
+  font-family: GilroyThin;
+  font-size: 2vh;
+}
+
+.countryInput:focus {
+  outline: none;
+}
+
+.countryInput::placeholder {
+  color: white;
+}
+
+
+.suggestionsList{
+  position: absolute;
+  background-color: transparent;
+  top: 70%;
+  border-radius: 0 0 30px 30px;
+  width: 100%;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.suggestionsList li{
+  list-style-type: none;
+  cursor: pointer;
+  color: white;
+  font-family: GilroyThin;
+  font-size: 4vh;
+}
+
+.error{
+  position: absolute;
+}

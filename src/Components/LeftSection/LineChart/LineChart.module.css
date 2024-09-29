@@ -1,0 +1,60 @@
+.graph {
+  width: 14vw;
+  height: 25vh;
+  border: 1px solid rgb(127, 127, 127);
+  border-radius: 2vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+  margin-left: 5vh;
+}
+
+.graph .leftNums {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 15vh;
+  left: -5vh;
+  flex-direction: column;
+  margin-bottom: 2vh;
+}
+.graph .bottomNums {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 12vw;
+    bottom: -3vh;
+    flex-direction: row;
+  }
+.smallText {
+  color: white;
+  font-family: GilroyThin;
+  padding: 0;
+  margin: 0;
+  font-size: 1.5vh;
+  
+}
+
+
+.currTemp{
+    position: absolute;
+    left: 1vh;
+    top: 1vh;
+    font-family: GilroyThin;
+    color: rgb(247,220,129);
+    font-size: 5vh;
+    padding: 0;
+    margin: 0;
+    
+}
+
+.currWeather{
+    position: absolute;
+    right: 1vh;
+    top: 1vh;
+    width: 5vh;
+    height: 5vh;
+}

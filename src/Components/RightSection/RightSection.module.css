@@ -1,0 +1,232 @@
+.RightSection {
+  width: 80%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.textSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 95%;
+  height: 50%;
+}
+
+.textSection .Author {
+  font-family: GilroyThin;
+  font-size: 2vh;
+  color: white;
+  text-transform: uppercase;
+}
+
+.textSection .WeatherText {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.smallText {
+  font-family: GilroyThin;
+  font-size: 2vh;
+  color: white;
+}
+
+.smallerText {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  width: 40%;
+  font-family: GilroyThin;
+  font-size: 1.8vh;
+  color: white;
+}
+
+.bigText {
+  font-family: GilroyMedium;
+  font-size: 7vh;
+  color: white;
+  font-weight: lighter;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 2vh;
+}
+
+.detailedForecast {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.SmallIcon {
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+}
+
+.upper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.NearbyForecastWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 95%;
+  height: 20%;
+}
+
+.NearbyForecastCard {
+  height: 100%;
+  width: 20%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+
+.NearbyForecastCard .temp,
+.NearbyForecastCard .day {
+  margin: 0;
+  padding: 0;
+  font-family: GilroyThin;
+  color: white;
+  display: flex;
+
+}
+
+.NearbyForecastCard .temp {
+  margin-bottom: 2vh;
+  flex-direction: column;
+}
+.NearbyForecastCard .day {
+  font-size: 2vh;
+  flex-direction: row;
+}
+
+.weatherIcon{
+  display: flex;
+  width: 3vh;
+  height: 3vh;
+  margin-left: 1vh;
+}
+
+.dayTemp,
+.nightTemp{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+
+}
+
+.word{
+  font-size: 2vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5vh;
+  margin-right: 2vh;
+}
+
+.cel{
+  font-size: 5vh;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+
+
+.timeForecast{
+  display: flex;
+  width: 95%;
+  height: 30%;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.timeOne,
+.timeTwo{
+  display: flex;
+  width: 100%;
+  height: 50%;
+  flex-direction: row;
+}
+
+.timeItem{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: calc(100% / 12);
+  height: 100%;
+  color: white;
+  font-family: GilroyThin;
+}
+
+
+.infoContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.timeIcon{
+  width: 4vh;
+  height: 4vh;
+}
+
+.timeItem p{
+  margin: 0;
+  padding: 0;
+  font-size: 2vh;
+}
+
+
+
+
+
+.line{
+  display: flex;
+  width: 95%;
+  height: 5vh;
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+  font-family: GilroyThin;
+  margin-bottom: 2vh;
+}
+
+.leftLine{
+  width: 10%;
+  border: 1px solid rgb(247,220,129);
+}
+
+.rightLine{
+  width: 75%;
+  border: 1px solid rgb(247,220,129);
+}
+
+.line p{
+  font-size: 3vh;
+  margin: 0;
+  padding: 0;
+}
