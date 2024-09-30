@@ -46,7 +46,6 @@ export const UseRealTimeClock = (lat, lon) => {
           setTimeZone(''); // Handle error by resetting timeZone
         }
       } catch (err) {
-        console.error('Error fetching timezone data:', err);
         setTime(''); // Handle error by resetting time
         setTimeZone(''); // Handle error by resetting timeZone
       }

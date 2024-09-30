@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./LandingPage.module.css";
-import Clouds from "../../Assets/Vids/Clouds_1.mp4";
 import axios from "axios";
 import fetchWeatherData from "../../Utils/WeatherForecast";
 import { UseRealTimeClock } from "../../Utils/UseRealTimeClock";
@@ -11,42 +10,52 @@ import RightSection from "../../Components/RightSection/RightSection";
 import Thermometer from "../../Assets/Icons/thermometer.png";
 import Search from "../../Assets/Icons/search.png";
 
+import { getWeatherVideo } from "../../Utils/WeatherVideoMapper";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const LandingPage = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [city, setCity] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [coords, setCoords] = useState({ lat: null, lon: null });
   const { time: fetchedTime } = UseRealTimeClock(coords.lat, coords.lon);
 
-  // Ref to track if weather data has already been fetched
   const hasFetchedWeatherData = useRef(false);
-  const apiKeyOne = process.env.REACT_APP_API_ONE
+  const apiKeyOne = process.env.REACT_APP_API_ONE;
+
+  const suggestionsRef = useRef(null);
+
+
   const fetchCitySuggestions = async () => {
     if (city.trim() === "") {
       setError("Please enter a valid city name.");
       return;
     }
 
-    setLoading(true);
     setError(null);
 
     try {
+      setIsRefreshing(true);
       const response = await axios.get(
         `https://geocode.maps.co/search?q=${encodeURIComponent(
           city
         )}&api_key=${apiKeyOne}`
       );
       if (response.data.length === 0) {
-        setError("No cities found. Please try again.");
+        toast.error("No suggestions found for this city."); // Show toast notification for no suggestions
+        return;
       } else {
         setSuggestions(response.data.slice(0, 1));
       }
     } catch (err) {
       setError("Error fetching city suggestions. Please try again.");
     } finally {
-      setLoading(false);
+      setIsRefreshing(false); // Reset isRefreshing after fetching
     }
   };
 
@@ -54,7 +63,7 @@ const LandingPage = () => {
     setSuggestions([]);
     setCoords({ lat: selectedCity.lat, lon: selectedCity.lon });
     setCity(selectedCity.display_name);
-    hasFetchedWeatherData.current = false; // Reset the ref when a new city is selected
+    hasFetchedWeatherData.current = false; // Reset weather data fetch flag when a new city is selected
   };
 
   // Effect to fetch weather data when time is available and only once
@@ -66,7 +75,6 @@ const LandingPage = () => {
         coords.lon &&
         !hasFetchedWeatherData.current
       ) {
-        setLoading(true);
         setError(null);
         try {
           const data = await fetchWeatherData(
@@ -74,32 +82,60 @@ const LandingPage = () => {
             coords.lat,
             coords.lon
           );
-          console.log(data);
+          setLoading(true);
           data.city = city;
           setWeatherData(data);
           hasFetchedWeatherData.current = true; // Set to true after fetching
         } catch (err) {
           setError(err.message);
-          console.log(err);
         } finally {
-          setLoading(false);
+          console.log("finished");
+          setLoading(false); // Loading ends after weather data is fetched
         }
       }
     };
 
     fetchWeatherDataAndUpdate();
-  }, [fetchedTime, coords, city]); // Only react to changes in these dependencies
+  }, [fetchedTime, coords, city]);
+
+
+  // Handle click outside suggestions list
+  const handleClickOutside = (event) => {
+    if (suggestionsRef.current && !suggestionsRef.current.contains(event.target)) {
+      setSuggestions([]); // Clear suggestions when clicking outside
+    }
+  };
+
+  useEffect(() => {
+    // Add event listener for clicks
+    document.addEventListener("mousedown", handleClickOutside);
+    
+    return () => {
+      // Cleanup the event listener on component unmount
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+
+  // Show loader until the weather data is fetched and video is fully loaded
+  const isLoading = loading || isRefreshing;
 
   return (
     <div className={styles.LandingPageWrapper}>
       <div className={styles.LandingPageContainer}>
-        <video
-          src={Clouds}
-          autoPlay
-          muted
-          loop
-          className={styles.Video}
-        ></video>
+        {weatherData && (
+          <video
+            src={getWeatherVideo(
+              weatherData.currentWeatherCode,
+              weatherData.isDay
+            )}
+            autoPlay
+            muted
+            loop
+            className={styles.Video}
+          ></video>
+        )}
+
         <div className={styles.LeftSection}>
           <div className={styles.LeftSectionContainer}>
             <div className={styles.inputContainer}>
@@ -110,7 +146,6 @@ const LandingPage = () => {
                 className={styles.searchIcon}
                 onClick={fetchCitySuggestions}
               />
-
               <input
                 type="text"
                 placeholder="Enter city name"
@@ -118,11 +153,9 @@ const LandingPage = () => {
                 onChange={(e) => setCity(e.target.value)}
                 className={styles.countryInput}
               />
-
-              {loading && <p>Loading...</p>}
               {error && <p className={styles.error}>{error}</p>}
               {suggestions.length > 0 && (
-                <ul className={styles.suggestionsList}>
+                <ul className={styles.suggestionsList} ref={suggestionsRef}>
                   {suggestions.map((suggestion, index) => (
                     <li
                       key={index}
@@ -135,11 +168,24 @@ const LandingPage = () => {
                 </ul>
               )}
             </div>
-            <LeftSection weatherData={weatherData} />
+            <LeftSection weatherData={weatherData} isLoading={isLoading} />
           </div>
         </div>
-        <RightSection weatherData={weatherData} />
+        <RightSection weatherData={weatherData} isLoading={isLoading} />
       </div>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };

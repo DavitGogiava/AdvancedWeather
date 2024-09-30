@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import styles from "./LeftSection.module.css";
 
-import Thermometer from "../../Assets/Icons/thermometer.png";
-import Search from "../../Assets/Icons/search.png";
 import LineChart from "./LineChart/LineChart";
 
 const LeftSection = ({ weatherData }) => {
 
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   
 
