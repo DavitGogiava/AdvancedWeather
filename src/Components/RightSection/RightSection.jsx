@@ -1,9 +1,11 @@
 import React from "react";
 import styles from "./RightSection.module.css";
 import { getWeatherIcon } from "../../Utils/WeatherIconMapper";
+import { getWeatherText } from "../../Utils/WeatherTextMapper";
 
 const RightSection = ({ weatherData, isLoading }) => {
 
+ 
   return (
     <div className={styles.RightSection}>
       {isLoading && !weatherData? (
@@ -24,7 +26,7 @@ const RightSection = ({ weatherData, isLoading }) => {
             <div className={styles.WeatherText}>
               <p className={styles.smallText}>Weather Forecast</p>
               <h1 className={styles.bigText}>
-                Storm <br></br> with Heavy Rain
+                {getWeatherText(weatherData.currentWeatherCode)[0]} <br></br> {getWeatherText(weatherData.currentWeatherCode)[1]}
               </h1>
             </div>
 

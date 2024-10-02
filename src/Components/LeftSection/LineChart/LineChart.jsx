@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./LineChart.module.css";
-import RainIcon from "../../../Assets/Icons/rain.png";
 
-const generateSmoothPath = (data, width, height) => {
+import { getWeatherIcon } from "../../../Utils/WeatherIconMapper";
+const generateSmoothPath = (data, width, height,) => {
   const maxY = Math.max(...data);
   const minY = Math.min(...data);
   const rangeY = maxY - minY || 1; 
@@ -26,7 +26,7 @@ const generateSmoothPath = (data, width, height) => {
   return pathD;
 };
 
-const LineChart = ({ data, width = "20vw", height = "30vh", currTemp }) => {
+const LineChart = ({ data, width = "20vw", height = "30vh", currTemp, currWeather, time }) => {
   const chartWidth = (parseFloat(width) * window.innerWidth) / 100;
   const chartHeight = (parseFloat(height) * window.innerHeight) / 100 - 4;
 
@@ -65,7 +65,7 @@ const LineChart = ({ data, width = "20vw", height = "30vh", currTemp }) => {
       </div>
 
       <p className={styles.currTemp}>{`${currTemp}°c`}</p>
-      <img src={RainIcon} alt="" className={styles.currWeather}/>
+      <img src={getWeatherIcon(currWeather, time)} alt="" className={styles.currWeather}/>
     </div>
   );
 };

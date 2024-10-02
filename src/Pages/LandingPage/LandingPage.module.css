@@ -21,8 +21,6 @@
   background-color: rgb(159, 159, 253);
 }
 
-
-
 .LandingPageContainer .Video {
   z-index: 5;
   position: absolute;
@@ -40,9 +38,6 @@
   min-width: 100%;
   min-height: 56.25vw; /* 100 * 9 / 16 */
 }
-
-
-
 
 .LeftSection {
   width: 20%;
@@ -88,9 +83,6 @@
   right: 0;
 }
 
-
-
-
 .inputContainer .countryInput {
   width: 90%;
   height: 4vh;
@@ -102,6 +94,7 @@
   color: white;
   font-family: GilroyThin;
   font-size: 2vh;
+  padding-right: 4vh;
 }
 
 .countryInput:focus {
@@ -112,38 +105,38 @@
   color: white;
 }
 
-
-.suggestionsList{
+.suggestionsList {
   position: absolute;
-  background-color: transparent;
-  top: 70%;
-  border-radius: 0 0 30px 30px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
   width: 100%;
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  background-color: rgb(167, 167, 167);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0 0 30px 30px;
+  padding: 0;
+  top: 70%;
   z-index: 999;
+  background: rgba(255, 255, 255, 0.43);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  transition: 0.3s ease-in-out;
 }
 
-.suggestionsList li{
+.suggestionsList li {
   list-style-type: none;
   cursor: pointer;
-  color: white;
+  color: black;
   font-family: GilroyThin;
   font-size: 4vh;
+  width: 90%;
 }
 
-.error{
+.suggestionsList:hover {
+  background-color: white;
+}
+
+.error {
   position: absolute;
 }
-
-
-
-
-
-
-
-
-
-

@@ -30,7 +30,6 @@ const LandingPage = () => {
 
   const suggestionsRef = useRef(null);
 
-
   const fetchCitySuggestions = async () => {
     if (city.trim() === "") {
       setError("Please enter a valid city name.");
@@ -85,11 +84,13 @@ const LandingPage = () => {
           setLoading(true);
           data.city = city;
           setWeatherData(data);
+          
           hasFetchedWeatherData.current = true; // Set to true after fetching
         } catch (err) {
           setError(err.message);
         } finally {
           console.log("finished");
+          console.log(weatherData);
           setLoading(false); // Loading ends after weather data is fetched
         }
       }
@@ -98,10 +99,12 @@ const LandingPage = () => {
     fetchWeatherDataAndUpdate();
   }, [fetchedTime, coords, city]);
 
-
   // Handle click outside suggestions list
   const handleClickOutside = (event) => {
-    if (suggestionsRef.current && !suggestionsRef.current.contains(event.target)) {
+    if (
+      suggestionsRef.current &&
+      !suggestionsRef.current.contains(event.target)
+    ) {
       setSuggestions([]); // Clear suggestions when clicking outside
     }
   };
@@ -109,13 +112,12 @@ const LandingPage = () => {
   useEffect(() => {
     // Add event listener for clicks
     document.addEventListener("mousedown", handleClickOutside);
-    
+
     return () => {
       // Cleanup the event listener on component unmount
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
 
   // Show loader until the weather data is fetched and video is fully loaded
   const isLoading = loading || isRefreshing;
@@ -151,6 +153,11 @@ const LandingPage = () => {
                 placeholder="Enter city name"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    fetchCitySuggestions();
+                  }
+                }}
                 className={styles.countryInput}
               />
               {error && <p className={styles.error}>{error}</p>}
@@ -162,7 +169,13 @@ const LandingPage = () => {
                       onClick={() => handleCoordinatesFetch(suggestion)}
                       className={styles.suggestionItem}
                     >
-                      {suggestion.display_name}
+                      {suggestion.display_name.split(",").length > 2
+                        ? suggestion.display_name.split(",")[0] +
+                          ", " +
+                          suggestion.display_name.split(",")[
+                            suggestion.display_name.split(",").length - 1
+                          ]
+                        : suggestion.display_name.split(",")[0]}
                     </li>
                   ))}
                 </ul>

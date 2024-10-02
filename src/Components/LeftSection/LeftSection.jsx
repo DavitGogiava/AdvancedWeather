@@ -37,25 +37,25 @@ const LeftSection = ({ weatherData }) => {
             <span className={styles.colorCircles}></span>
             <span className={styles.colorCircles}></span>
           </div>
-          <p className={styles.lowerText}>0.8%</p>
+          <p className={styles.lowerText}>{weatherData.dangerLevel}%</p>
         </div>
         <div className={styles.loweR}>
           <div className={styles.colOne}>
             <p className={styles.smallText}>Safe</p>
             <p className={styles.smallText}>
-              <span className={styles.smallTextCircle}></span>0.00% - 0.9%
+              <span className={styles.smallTextCircle}></span>0.00% - 10.5%
             </p>
             <p className={styles.smallText}>
-              <span className={styles.smallTextCircle}></span>0.9% - 11%
+              <span className={styles.smallTextCircle}></span>10.5% - 35%
             </p>
           </div>
           <div className={styles.colTwo}>
             <p className={styles.smallText}>Dangerous</p>
             <p className={styles.smallText}>
-              <span className={styles.smallTextCircle}></span>12% - 38%
+              <span className={styles.smallTextCircle}></span>35% - 55%
             </p>
             <p className={styles.smallText}>
-              <span className={styles.smallTextCircle}></span>39% - 90%
+              <span className={styles.smallTextCircle}></span>55% - 90%
             </p>
           </div>
         </div>
@@ -65,6 +65,9 @@ const LeftSection = ({ weatherData }) => {
         width={"12vw"}
         height={"15vh"}
         currTemp={weatherData.currentTemp}
+        currWeather={weatherData.currentWeatherCode}
+        time={weatherData.timeWithoutSeconds}
+
       />
     </>
   );
