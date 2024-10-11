@@ -40,3 +40,11 @@ fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&dai
        // Process the weather data
    });
 ```
+
+```bash
+fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min&timezone=auto')
+   .then(response => response.json())
+   .then(data => {
+       // Process the weather data
+   });
+```
