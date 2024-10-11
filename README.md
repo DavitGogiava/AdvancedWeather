@@ -12,4 +12,23 @@ Features
 - API: Open-Meteo API
 - Icons: PNG and SVG images for weather conditions
 
-Run `npm start` to start the development server.
+## Getting Started
+### Prerequisites
+- Node.js (v14 or later)
+- npm (v6 or later)
+### Installation
+1. Clone the repository:
+  `git clone https://github.com/DavitGogiava/AdvancedWeather.git`
+  `cd AdvancedWeather`
+2. Install dependencies:
+   `npm install`
+3. Start development server:
+   `npm start`
+4. Build for production:
+   `npm run build`
+## API Usage
+This app uses the Open-Meteo API to fetch weather data. To use the API:
+
+No API key is required for the Open-Meteo API.
+1. No API key is required for the Open-Meteo API.
+2. The app sends a request to the Open-Meteo API to retrieve weather data based on the coordinates of the user's selected location. The coordinates are obtained using a geocoding service.
