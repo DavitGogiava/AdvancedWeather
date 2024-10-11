@@ -19,12 +19,13 @@ Features
 ### Installation
 1. Clone the repository:
   `git clone https://github.com/DavitGogiava/AdvancedWeather.git`
+2. Navigate to folder
   `cd AdvancedWeather`
-2. Install dependencies:
+3. Install dependencies:
    `npm install`
-3. Start development server:
+4. Start development server:
    `npm start`
-4. Build for production:
+5. Build for production:
    `npm run build`
 ## API Usage
 This app uses the Open-Meteo API to fetch weather data. To use the API:
@@ -40,11 +41,10 @@ fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&dai
        // Process the weather data
    });
 ```
+### Filtering and Displaying Data
+- Temperature: Displayed as maximum and minimum temperatures for the selected location and day.
+- Background: The background changes according to weather conditions (sunny, cloudy, rainy, etc.).
+- Weather Icons: Icons are selected based on the weather code received from the API for day and night conditions.
 
-```bash
-fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min&timezone=auto')
-   .then(response => response.json())
-   .then(data => {
-       // Process the weather data
-   });
-```
+## Application structure
+src/ ├── components/ │ ├── LeftSection.js # Search bar and geocoding functionality │ ├── RightSection.js # Loader, dynamic background, and weather display │ └── WeatherForecast.js # Displays 7-day weather forecast ├── utils/ │ ├── weatherUtils.js # Utility functions to process weather data │ └── backgroundUtils.js # Functions to set dynamic backgrounds based on weather ├── App.js # Main application component ├── index.js # Entry point for React application └── styles/ # CSS files for styling components
