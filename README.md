@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# Weather App 🌦️
+This is a weather application built with React, which displays live weather information for any location. The app fetches data from the Open-Meteo API, processes it, and updates the background dynamically based on the weather conditions at the selected location. The app also displays temperature, weather icons, and other key information for the next 7 days.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+###Features
+- 🌍 Location-Based Weather: Users can input a specific location, and the app will retrieve and display weather data for that location.
+- 🎥 Dynamic Live Background: The app changes its background based on real-time weather conditions like sunny, rainy, or snowy weather.
+- 🌡️  Detailed Weather Information: Provides data such as temperature, wind speed, humidity, and pressure.
+- 📅 7-Day Forecast: Displays the minimum and maximum temperatures and weather icons for the upcoming 7 days.
+- 🌙 Day & Night Mode: Adjusts icons and visual elements based on whether it’s day or night.
+## Tech Stack
+- Frontend: React, HTML, CSS
+- API: Open-Meteo API
+- Icons: PNG and SVG images for weather conditions
 
-## Available Scripts
+## Getting Started
+### Prerequisites
+- Node.js (v14 or later)
+- npm (v6 or later)
+### Installation
+1. Clone the repository:
+  `git clone https://github.com/DavitGogiava/AdvancedWeather.git`
+2. Navigate to folder
+  `cd AdvancedWeather`
+3. Install dependencies:
+   `npm install`
+4. Start development server:
+   `npm start`
+5. Build for production:
+   `npm run build`
+## API Usage
+This app uses the Open-Meteo API to fetch weather data and timezonedb API to get RealTime Clock because js date time uses time from the device. To use the API:
+- Open-Meteo API:
+-- No API key is required for the Open-Meteo API.
+-- The app sends a request to the Open-Meteo API to retrieve weather data based on the coordinates of the user's selected location. The coordinates are obtained using a `geocode.maps.co` API.
+- timezonedb API:
+-- Get the free API key from `https://timezonedb.com/api`
+-- The app sends a request to the timezonedb API to retrieve current time of the location. The coordinates are obtained using a geocoding service `geocode.maps.co` API.
 
-In the project directory, you can run:
+### Example API Request
+Here’s an example of the API call made to Open-Meteo:
+```javascript
+fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min&timezone=auto')
+   .then(response => response.json())
+   .then(data => {
+       // Process the weather data
+   });
+```
+### Filtering and Displaying Data
+- Temperature: Displayed as maximum and minimum temperatures for the selected location and day.
+- Background: The background changes according to weather conditions (sunny, cloudy, rainy, etc.).
+- Weather Icons: Icons are selected based on the weather code received from the API for day and night conditions.
 
-### `npm start`
+## Application structure
+```md
+- **src/**
+  - **Assets/**
+    - `Fonts` - Fonts used on website
+    - `Icons` - Weather Icons
+    - `Vids` - Weather videos
+  - **Components/**
+    - `LeftSection.` - Search bar and geocoding functionality
+    - `RightSection` - Loader, dynamic background, and weather display
+  - **Pages/**
+    - `LandingPage.` - LandingPage component
+  - **Utils/**
+    - `DeviceContext.js` - Detect which device user is using to determine section structure
+    - `UseRealTimeClock.js` - Get RealTime Clock from timezonedb api
+    - `WeatherForecast.js` - Openmeteo api call to get the weather data and filter it
+    - `WeatherIconMapper.js` - function which takes weatherCode from WeatherForecast data and returns icon for that weather
+    - `WeatherTextMapper.js` - function which takes weatherCode from WeatherForecast data and returns text for that weather
+    - `WeatherVideoMapper.js` - function which takes weatherCode from WeatherForecast data and returns video for that weather
+  - `App.js` - Main application component
+  - `index.js` - Entry point for React application
+  - **styles/** - CSS files for styling components
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## How It Works
+1. Geocoding: When a user enters a location, the app uses a geocoding service (`geocode.maps.co` API) to get the coordinates (latitude, longitude) of that location.
+2. Fetching Weather Data: With the coordinates, the app sends a request to Open-Meteo to fetch weather data, including temperature, precipitation, and weather codes for the selected location.
+3. Dynamic Background: The app updates the background based on the weather condition code received from the API, providing a real-time visual experience.
+4. 7-Day Forecast: The app shows a summary of weather for the next 7 days with icons and temperature data.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contributions
+Contributions are welcome! Feel free to submit a pull request or report issues in the issue tracker.
