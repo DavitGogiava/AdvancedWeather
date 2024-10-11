@@ -28,9 +28,13 @@ Features
 5. Build for production:
    `npm run build`
 ## API Usage
-This app uses the Open-Meteo API to fetch weather data. To use the API:
-1. No API key is required for the Open-Meteo API.
-2. The app sends a request to the Open-Meteo API to retrieve weather data based on the coordinates of the user's selected location. The coordinates are obtained using a geocoding service.
+This app uses the Open-Meteo API to fetch weather data and timezonedb API to get RealTime Clock because js date time uses time from the device. To use the API:
+- Open-Meteo API:
+-- No API key is required for the Open-Meteo API.
+-- The app sends a request to the Open-Meteo API to retrieve weather data based on the coordinates of the user's selected location. The coordinates are obtained using a `geocode.maps.co` API.
+- timezonedb API:
+-- Get the free API key from `https://timezonedb.com/api`
+-- The app sends a request to the timezonedb API to retrieve current time of the location. The coordinates are obtained using a geocoding service `geocode.maps.co` API.
 
 ### Example API Request
 Here’s an example of the API call made to Open-Meteo:
@@ -47,4 +51,33 @@ fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&dai
 - Weather Icons: Icons are selected based on the weather code received from the API for day and night conditions.
 
 ## Application structure
-src/ ├── components/ │ ├── LeftSection.js # Search bar and geocoding functionality │ ├── RightSection.js # Loader, dynamic background, and weather display │ └── WeatherForecast.js # Displays 7-day weather forecast ├── utils/ │ ├── weatherUtils.js # Utility functions to process weather data │ └── backgroundUtils.js # Functions to set dynamic backgrounds based on weather ├── App.js # Main application component ├── index.js # Entry point for React application └── styles/ # CSS files for styling components
+```md
+## Application Structure
+
+- **src/**
+  - **Assets/**
+    - `Fonts` - Fonts used on website
+    - `Icons` - Weather Icons
+    - `Vids` - Weather videos
+  - **Components/**
+    - `LeftSection.` - Search bar and geocoding functionality
+    - `RightSection` - Loader, dynamic background, and weather display
+  - **Pages/**
+    - `LandingPage.` - LandingPage component
+  - **Utils/**
+    - `DeviceContext.js` - Detect which device user is using to determine section structure
+    - `UseRealTimeClock.js` - Get RealTime Clock from timezonedb api
+    - `WeatherForecast.js` - Openmeteo api call to get the weather data and filter it
+    - `WeatherIconMapper.js` - function which takes weatherCode from WeatherForecast data and returns icon for that weather
+    - `WeatherTextMapper.js` - function which takes weatherCode from WeatherForecast data and returns text for that weather
+    - `WeatherVideoMapper.js` - function which takes weatherCode from WeatherForecast data and returns video for that weather
+  - `App.js` - Main application component
+  - `index.js` - Entry point for React application
+  - **styles/** - CSS files for styling components
+```
+
+## How It Works
+1. Geocoding: When a user enters a location, the app uses a geocoding service (`geocode.maps.co` API) to get the coordinates (latitude, longitude) of that location.
+2. Fetching Weather Data: With the coordinates, the app sends a request to Open-Meteo to fetch weather data, including temperature, precipitation, and weather codes for the selected location.
+3. Dynamic Background: The app updates the background based on the weather condition code received from the API, providing a real-time visual experience.
+4. 7-Day Forecast: The app shows a summary of weather for the next 7 days with icons and temperature data.
