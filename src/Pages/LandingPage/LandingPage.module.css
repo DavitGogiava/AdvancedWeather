@@ -140,3 +140,141 @@
 .error {
   position: absolute;
 }
+
+
+
+
+@media only screen and (max-width: 768px){
+
+  .LandingPageWrapper {
+    width: 100%;
+    height: 150vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(39, 38, 56);
+  }
+  
+  .LandingPageContainer {
+    height: 99%;
+    width: 95%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 30px;
+    flex-direction: column;
+    z-index: 0;
+    overflow: hidden;
+    position: relative;
+    background-color: transparent;
+  }
+  
+  .LandingPageContainer .Video {
+    z-index: 5;
+    position: absolute;
+    width: auto;
+  }
+  
+  .Overlay {
+    position: absolute;
+    z-index: 6;
+  }
+  
+  .LeftSection {
+    width: 95%;
+    height: 10vh;
+    flex-direction: column;
+  }
+  
+  .LeftSectionContainer {
+    display: flex;
+    width: 100%;
+    height: 90%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .LeftSectionContainer .inputContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+  }
+  
+  .searchIcon {
+    position: absolute;
+    top: 0;
+    width: 4vh;
+    cursor: pointer;
+  }
+  
+  .searchIcon:nth-of-type(1) {
+    left: 0;
+  }
+  .searchIcon:nth-of-type(2) {
+    right: 0;
+  }
+  
+  .inputContainer .countryInput {
+    width: 90%;
+    height: 4vh;
+    background-color: transparent;
+    border: none;
+    border-bottom: 0.2vh solid white;
+    padding-bottom: 1vh;
+    padding-left: 4vh;
+    color: white;
+    font-family: GilroyThin;
+    font-size: 2vh;
+    padding-right: 4vh;
+  }
+  
+  .countryInput:focus {
+    outline: none;
+  }
+  
+  .countryInput::placeholder {
+    color: white;
+  }
+  
+  .suggestionsList {
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 0 0 30px 30px;
+    padding: 0;
+    top: 70%;
+    z-index: 999;
+    background: rgba(255, 255, 255, 0.43);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    transition: 0.3s ease-in-out;
+  }
+  
+  .suggestionsList li {
+    list-style-type: none;
+    cursor: pointer;
+    color: black;
+    font-family: GilroyThin;
+    font-size: 4vh;
+    width: 90%;
+  }
+  
+  .suggestionsList:hover {
+    background-color: white;
+  }
+  
+  .error {
+    position: absolute;
+  }
+  
+
+
+}

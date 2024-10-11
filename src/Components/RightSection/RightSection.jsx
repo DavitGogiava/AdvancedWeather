@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./RightSection.module.css";
 import { getWeatherIcon } from "../../Utils/WeatherIconMapper";
 import { getWeatherText } from "../../Utils/WeatherTextMapper";
+import { DeviceContext } from "../../Utils/DeviceContext";
 
 const RightSection = ({ weatherData, isLoading }) => {
+  const isMobile = useContext(DeviceContext);
 
- 
   return (
     <div className={styles.RightSection}>
-      {isLoading && !weatherData? (
+      {isLoading && !weatherData ? (
         <div className={styles.loaderWrapper}>
           <div className={styles.loader}>
             <div className={styles.circle}></div>
@@ -19,65 +20,112 @@ const RightSection = ({ weatherData, isLoading }) => {
         </div>
       ) : (
         <>
-          <div className={styles.textSection}>
-            <p className={styles.Author}>
-              Built by <br></br>Davit Gogiava
-            </p>
-            <div className={styles.WeatherText}>
-              <p className={styles.smallText}>Weather Forecast</p>
-              <h1 className={styles.bigText}>
-                {getWeatherText(weatherData.currentWeatherCode)[0]} <br></br> {getWeatherText(weatherData.currentWeatherCode)[1]}
-              </h1>
-            </div>
+          {isMobile ? (
+            <>
+              <div className={styles.textSection}>
+                <div className={styles.WeatherText}>
+                  <p className={styles.smallText}>Weather Forecast</p>
+                  <h1 className={styles.bigText}>
+                    {getWeatherText(weatherData.currentWeatherCode)[0]}{" "}
+                    <br></br>{" "}
+                    {getWeatherText(weatherData.currentWeatherCode)[1]}
+                  </h1>
+                </div>
 
-            <div className={styles.detailedForecast}>
-              <p className={styles.smallText}>
-                {`${weatherData.city}, ${weatherData.todayDate}, ${weatherData.timeWithoutSeconds}`}
-              </p>
-            </div>
-          </div>
-          <div className={styles.timeForecast}>
-            <div className={styles.timeOne}>
-              {weatherData.hoursArray.slice(0, 12).map((hour, index) => (
-                <div className={styles.timeItem} key={index}>
-                  <div className={styles.infoContainer}>
-                    <img
-                      src={getWeatherIcon(
-                        weatherData.hourWeatherCodes[index],
-                        hour
-                      )}
-                      className={styles.timeIcon}
-                      alt=""
-                    />
-                    <p className={styles.timeTemp}>
-                      {weatherData.hourTemps[index]}°
-                    </p>
-                  </div>
-                  <p className={styles.time}>{hour}</p>
+                <div className={styles.detailedForecast}>
+                  <p className={styles.smallText}>
+                    {`${weatherData.city}, ${weatherData.todayDate}, ${weatherData.timeWithoutSeconds}`}
+                  </p>
                 </div>
-              ))}
-            </div>
-            <div className={styles.timeTwo}>
-              {weatherData.hoursArray.slice(12, 24).map((hour, index) => (
-                <div className={styles.timeItem} key={index}>
-                  <div className={styles.infoContainer}>
-                    <img
-                      src={getWeatherIcon(
-                        weatherData.hourWeatherCodes[index],
-                        hour
-                      )}
-                      className={styles.timeIcon}
-                      alt=""
-                    />
-                    <p className={styles.timeTemp}>
-                      {weatherData.hourTemps[index + 12]}°
-                    </p>
-                  </div>
-                  <p className={styles.time}>{hour}</p>
+              </div>
+              <div className={styles.timeForecast}>
+                <div className={styles.timeOne}>
+                  {weatherData.hoursArray.slice(0, 24).map((hour, index) => (
+                    <div className={styles.timeItem} key={index}>
+                      <div className={styles.infoContainer}>
+                        <img
+                          src={getWeatherIcon(
+                            weatherData.hourWeatherCodes[index],
+                            hour
+                          )}
+                          className={styles.timeIcon}
+                          alt=""
+                        />
+                        <p className={styles.timeTemp}>
+                          {weatherData.hourTemps[index]}°
+                        </p>
+                      </div>
+                      <p className={styles.time}>{hour}</p>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className={styles.textSection}>
+                <p className={styles.Author}>
+                  Built by <br></br>Davit Gogiava
+                </p>
+                <div className={styles.WeatherText}>
+                  <p className={styles.smallText}>Weather Forecast</p>
+                  <h1 className={styles.bigText}>
+                    {getWeatherText(weatherData.currentWeatherCode)[0]}{" "}
+                    <br></br>{" "}
+                    {getWeatherText(weatherData.currentWeatherCode)[1]}
+                  </h1>
+                </div>
+
+                <div className={styles.detailedForecast}>
+                  <p className={styles.smallText}>
+                    {`${weatherData.city}, ${weatherData.todayDate}, ${weatherData.timeWithoutSeconds}`}
+                  </p>
+                </div>
+              </div>
+              <div className={styles.timeForecast}>
+                <div className={styles.timeOne}>
+                  {weatherData.hoursArray.slice(0, 12).map((hour, index) => (
+                    <div className={styles.timeItem} key={index}>
+                      <div className={styles.infoContainer}>
+                        <img
+                          src={getWeatherIcon(
+                            weatherData.hourWeatherCodes[index],
+                            hour
+                          )}
+                          className={styles.timeIcon}
+                          alt=""
+                        />
+                        <p className={styles.timeTemp}>
+                          {weatherData.hourTemps[index]}°
+                        </p>
+                      </div>
+                      <p className={styles.time}>{hour}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className={styles.timeTwo}>
+                  {weatherData.hoursArray.slice(12, 24).map((hour, index) => (
+                    <div className={styles.timeItem} key={index}>
+                      <div className={styles.infoContainer}>
+                        <img
+                          src={getWeatherIcon(
+                            weatherData.hourWeatherCodes[index],
+                            hour
+                          )}
+                          className={styles.timeIcon}
+                          alt=""
+                        />
+                        <p className={styles.timeTemp}>
+                          {weatherData.hourTemps[index + 12]}°
+                        </p>
+                      </div>
+                      <p className={styles.time}>{hour}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
 
           <div className={styles.line}>
             <div className={styles.leftLine}></div>
@@ -106,7 +154,7 @@ const RightSection = ({ weatherData, isLoading }) => {
                 </div>
                 <div className={styles.day}>
                   <p>{day}</p>
-                  
+
                   <img
                     src={getWeatherIcon(weatherData.DailyWeatherCodes[index])}
                     className={styles.weatherIcon}

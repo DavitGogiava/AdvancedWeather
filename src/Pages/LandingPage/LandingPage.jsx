@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import styles from "./LandingPage.module.css";
 import axios from "axios";
 import fetchWeatherData from "../../Utils/WeatherForecast";
@@ -15,6 +15,8 @@ import { getWeatherVideo } from "../../Utils/WeatherVideoMapper";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { DeviceContext } from "../../Utils/DeviceContext";
+
 const LandingPage = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState(null);
@@ -24,6 +26,8 @@ const LandingPage = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [coords, setCoords] = useState({ lat: null, lon: null });
   const { time: fetchedTime } = UseRealTimeClock(coords.lat, coords.lon);
+
+  const isMobile = useContext(DeviceContext);
 
   const hasFetchedWeatherData = useRef(false);
   const apiKeyOne = process.env.REACT_APP_API_ONE;
@@ -84,7 +88,7 @@ const LandingPage = () => {
           setLoading(true);
           data.city = city;
           setWeatherData(data);
-          
+
           hasFetchedWeatherData.current = true; // Set to true after fetching
         } catch (err) {
           setError(err.message);
@@ -124,68 +128,137 @@ const LandingPage = () => {
 
   return (
     <div className={styles.LandingPageWrapper}>
-      <div className={styles.LandingPageContainer}>
-        {weatherData && (
-          <video
-            src={getWeatherVideo(
-              weatherData.currentWeatherCode,
-              weatherData.isDay
+      {isMobile ? (
+        <>
+          <div className={styles.LandingPageContainer}>
+            {weatherData && (
+              <video
+                src={getWeatherVideo(
+                  weatherData.currentWeatherCode,
+                  weatherData.isDay
+                )}
+                autoPlay
+                muted
+                loop
+                className={styles.Video}
+              ></video>
             )}
-            autoPlay
-            muted
-            loop
-            className={styles.Video}
-          ></video>
-        )}
 
-        <div className={styles.LeftSection}>
-          <div className={styles.LeftSectionContainer}>
-            <div className={styles.inputContainer}>
-              <img src={Thermometer} alt="" className={styles.searchIcon} />
-              <img
-                src={Search}
-                alt=""
-                className={styles.searchIcon}
-                onClick={fetchCitySuggestions}
-              />
-              <input
-                type="text"
-                placeholder="Enter city name"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    fetchCitySuggestions();
-                  }
-                }}
-                className={styles.countryInput}
-              />
-              {error && <p className={styles.error}>{error}</p>}
-              {suggestions.length > 0 && (
-                <ul className={styles.suggestionsList} ref={suggestionsRef}>
-                  {suggestions.map((suggestion, index) => (
-                    <li
-                      key={index}
-                      onClick={() => handleCoordinatesFetch(suggestion)}
-                      className={styles.suggestionItem}
-                    >
-                      {suggestion.display_name.split(",").length > 2
-                        ? suggestion.display_name.split(",")[0] +
-                          ", " +
-                          suggestion.display_name.split(",")[
-                            suggestion.display_name.split(",").length - 1
-                          ]
-                        : suggestion.display_name.split(",")[0]}
-                    </li>
-                  ))}
-                </ul>
-              )}
+            <div className={styles.LeftSection}>
+              <div className={styles.LeftSectionContainer}>
+                <div className={styles.inputContainer}>
+                  <img src={Thermometer} alt="" className={styles.searchIcon} />
+                  <img
+                    src={Search}
+                    alt=""
+                    className={styles.searchIcon}
+                    onClick={fetchCitySuggestions}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Enter city name"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        fetchCitySuggestions();
+                      }
+                    }}
+                    className={styles.countryInput}
+                  />
+                  {error && <p className={styles.error}>{error}</p>}
+                  {suggestions.length > 0 && (
+                    <ul className={styles.suggestionsList} ref={suggestionsRef}>
+                      {suggestions.map((suggestion, index) => (
+                        <li
+                          key={index}
+                          onClick={() => handleCoordinatesFetch(suggestion)}
+                          className={styles.suggestionItem}
+                        >
+                          {suggestion.display_name.split(",").length > 2
+                            ? suggestion.display_name.split(",")[0] +
+                              ", " +
+                              suggestion.display_name.split(",")[
+                                suggestion.display_name.split(",").length - 1
+                              ]
+                            : suggestion.display_name.split(",")[0]}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
             </div>
-            <LeftSection weatherData={weatherData} isLoading={isLoading} />
+              <RightSection weatherData={weatherData} isLoading={isLoading} />
+              <LeftSection weatherData={weatherData} isLoading={isLoading} />
           </div>
-        </div>
-        <RightSection weatherData={weatherData} isLoading={isLoading} />
-      </div>
+        </>
+      ) : (
+        <>
+          <div className={styles.LandingPageContainer}>
+            {weatherData && (
+              <video
+                src={getWeatherVideo(
+                  weatherData.currentWeatherCode,
+                  weatherData.isDay
+                )}
+                autoPlay
+                muted
+                loop
+                className={styles.Video}
+              ></video>
+            )}
+
+            <div className={styles.LeftSection}>
+              <div className={styles.LeftSectionContainer}>
+                <div className={styles.inputContainer}>
+                  <img src={Thermometer} alt="" className={styles.searchIcon} />
+                  <img
+                    src={Search}
+                    alt=""
+                    className={styles.searchIcon}
+                    onClick={fetchCitySuggestions}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Enter city name"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        fetchCitySuggestions();
+                      }
+                    }}
+                    className={styles.countryInput}
+                  />
+                  {error && <p className={styles.error}>{error}</p>}
+                  {suggestions.length > 0 && (
+                    <ul className={styles.suggestionsList} ref={suggestionsRef}>
+                      {suggestions.map((suggestion, index) => (
+                        <li
+                          key={index}
+                          onClick={() => handleCoordinatesFetch(suggestion)}
+                          className={styles.suggestionItem}
+                        >
+                          {suggestion.display_name.split(",").length > 2
+                            ? suggestion.display_name.split(",")[0] +
+                              ", " +
+                              suggestion.display_name.split(",")[
+                                suggestion.display_name.split(",").length - 1
+                              ]
+                            : suggestion.display_name.split(",")[0]}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+                <LeftSection weatherData={weatherData} isLoading={isLoading} />
+              </div>
+            </div>
+            <RightSection weatherData={weatherData} isLoading={isLoading} />
+          </div>
+        </>
+      )}
 
       <ToastContainer
         position="top-right"
