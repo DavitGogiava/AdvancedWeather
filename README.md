@@ -80,5 +80,5 @@ fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&dai
 3. Dynamic Background: The app updates the background based on the weather condition code received from the API, providing a real-time visual experience.
 4. 7-Day Forecast: The app shows a summary of weather for the next 7 days with icons and temperature data.
 
-##Contributions
+## Contributions
 Contributions are welcome! Feel free to submit a pull request or report issues in the issue tracker.
