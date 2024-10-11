@@ -28,7 +28,15 @@ Features
    `npm run build`
 ## API Usage
 This app uses the Open-Meteo API to fetch weather data. To use the API:
-
-No API key is required for the Open-Meteo API.
 1. No API key is required for the Open-Meteo API.
 2. The app sends a request to the Open-Meteo API to retrieve weather data based on the coordinates of the user's selected location. The coordinates are obtained using a geocoding service.
+
+### Example API Request
+Here’s an example of the API call made to Open-Meteo:
+```javascript
+fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min&timezone=auto')
+   .then(response => response.json())
+   .then(data => {
+       // Process the weather data
+   });
+```
