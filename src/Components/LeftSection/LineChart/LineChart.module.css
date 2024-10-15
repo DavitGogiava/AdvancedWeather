@@ -21,40 +21,85 @@
   margin-bottom: 2vh;
 }
 .graph .bottomNums {
-    position: absolute;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 12vw;
-    bottom: -3vh;
-    flex-direction: row;
-  }
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 12vw;
+  bottom: -3vh;
+  flex-direction: row;
+}
 .smallText {
   color: white;
   font-family: GilroyThin;
   padding: 0;
   margin: 0;
   font-size: 1.5vh;
-  
 }
 
+.currTemp {
+  position: absolute;
+  left: 1vh;
+  top: 1vh;
+  font-family: GilroyThin;
+  color: rgb(247, 220, 129);
+  font-size: 5vh;
+  padding: 0;
+  margin: 0;
+}
 
-.currTemp{
+.currWeather {
+  position: absolute;
+  right: 1vh;
+  top: 1vh;
+  width: 5vh;
+  height: 5vh;
+}
+
+@media only screen and (max-width: 768px) {
+  .graph {
+    width: 82vw;
+    height: 25vh;
+    border-radius: 2vh;
+    margin-left: 5vh;
+    margin-top: 2vh;
+    margin-bottom: 5vh;
+    z-index: 999;
+    border: none;
+    background: rgba(71, 71, 71, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+
+  .graph .bottomNums {
+    width: 80vw;
+  }
+  .smallText {
+    color: white;
+    font-family: GilroyThin;
+    padding: 0;
+    margin: 0;
+    font-size: 1.5vh;
+  }
+
+  .currTemp {
     position: absolute;
     left: 1vh;
     top: 1vh;
     font-family: GilroyThin;
-    color: rgb(247,220,129);
+    color: rgb(247, 220, 129);
     font-size: 5vh;
     padding: 0;
     margin: 0;
-    
-}
+  }
 
-.currWeather{
+  .currWeather {
     position: absolute;
     right: 1vh;
     top: 1vh;
     width: 5vh;
     height: 5vh;
+  }
 }

@@ -22,20 +22,29 @@ const RightSection = ({ weatherData, isLoading }) => {
         <>
           {isMobile ? (
             <>
-              <div className={styles.textSection}>
-                <div className={styles.WeatherText}>
-                  <p className={styles.smallText}>Weather Forecast</p>
-                  <h1 className={styles.bigText}>
-                    {getWeatherText(weatherData.currentWeatherCode)[0]}{" "}
-                    <br></br>{" "}
-                    {getWeatherText(weatherData.currentWeatherCode)[1]}
-                  </h1>
-                </div>
+              <div className={styles.tempSection}>
+                <div className={styles.textSection}>
+                  <div className={styles.WeatherText}>
+                    <p className={styles.smallText}>Weather Forecast</p>
+                    <h1 className={styles.bigText}>
+                      {getWeatherText(weatherData.currentWeatherCode)[0]}{" "}
+                      <br></br>{" "}
+                      {getWeatherText(weatherData.currentWeatherCode)[1]}
+                    </h1>
+                  </div>
 
-                <div className={styles.detailedForecast}>
-                  <p className={styles.smallText}>
-                    {`${weatherData.city}, ${weatherData.todayDate}, ${weatherData.timeWithoutSeconds}`}
+                  <div className={styles.detailedForecast}>
+                    <p className={styles.smallText}>
+                      {`${weatherData.city}, ${weatherData.todayDate}, ${weatherData.timeWithoutSeconds}`}
+                    </p>
+                  </div>
+                </div>
+                <div className={styles.upperSec}>
+                  <p className={styles.Temperature}>
+                    {weatherData.currentTemp}°
                   </p>
+                  <p className={styles.Simple}>+/-</p>
+                  <p className={styles.Temperature}>3</p>
                 </div>
               </div>
               <div className={styles.timeForecast}>

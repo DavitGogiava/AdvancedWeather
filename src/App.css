@@ -12,3 +12,7 @@
     font-family: GilroyThin;
     src: url("./Assets/Fonts/Gilroy-Thin.ttf");
 }
+
+.App{
+    overflow: hidden;
+}

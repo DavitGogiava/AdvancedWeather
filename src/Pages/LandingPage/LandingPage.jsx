@@ -205,6 +205,7 @@ const LandingPage = () => {
                 autoPlay
                 muted
                 loop
+                playsInline
                 className={styles.Video}
               ></video>
             )}

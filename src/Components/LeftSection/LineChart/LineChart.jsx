@@ -26,17 +26,15 @@ const generateSmoothPath = (data, width, height,) => {
   return pathD;
 };
 
-const LineChart = ({ data, width = "20vw", height = "30vh", currTemp, currWeather, time }) => {
+const LineChart = ({ data, width, height, currTemp, currWeather, time }) => {
   const chartWidth = (parseFloat(width) * window.innerWidth) / 100;
   const chartHeight = (parseFloat(height) * window.innerHeight) / 100 - 4;
-
   const pathD = generateSmoothPath(data, chartWidth, chartHeight);
 
   const maxY = Math.max(...data);
   const minY = Math.min(...data);
 
   const yLabels = [maxY, (minY + maxY) / 2, minY];
-
   return (
     <div className={styles.graph}>
       <svg
@@ -47,7 +45,7 @@ const LineChart = ({ data, width = "20vw", height = "30vh", currTemp, currWeathe
       >
         <path d={pathD} fill="none" stroke="rgb(247,220,129)" strokeWidth="2" />
       </svg>
-
+      
       <div className={styles.leftNums}>
         {yLabels.map((label, index) => (
           <p key={index} className={styles.smallText}>
